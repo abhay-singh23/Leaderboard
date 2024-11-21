@@ -665,6 +665,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         // });
 
         
+
+        
         // Populate section filter dropdown
         const populateSectionFilter = () => {
             // var sections = [...new Set(data.map(student => student.section || 'N/A'))].sort();
@@ -694,6 +696,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                     student.url
                 ].join(',');
             });
+
+
+
             
             const csvContent = [headers.join(','), ...csvRows].join('\n');
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -707,6 +712,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.body.removeChild(link);
         };
 
+        const movingBoard = document.querySelector(".js-moving-board");
+
         // Function to render the leaderboard
         const renderLeaderboard = (sortedData) => {
             leaderboardBody.innerHTML = '';
@@ -718,6 +725,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if( diff === student.totalSolved) diff =0;
                 if(student.recentSubmissions){
                     if(student.recentSubmissions.length > 0){
+                        
                     val = student.recentSubmissions[0].title || '';
                      utcSeconds = student.recentSubmissions[0].timestamp || 0;;
                      d = new Date(0); // The 0 there is the key, which sets the date to the epoch
@@ -727,6 +735,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                     val="";
                     utcSeconds = "";
                 }
+
+                
+
+                
+
+                
+
+                
+
+               
+                
                 
                 // console.log(student.name + " question " + val ? val : "" + " date " + d ? d : "");
                 // console.log(diff);
@@ -755,6 +774,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                 `;
                 leaderboardBody.appendChild(row);
             });
+
+            console.log(sortedData);
+
+            for(let i=0;i<3;i++){
+                movingBoard.innerHTML += `<div class="space"><div>${sortedData[i].name}</div>
+                <div>${sortedData[i].url}</div></div>`;
+            }
+            
+            
         };
 
         // Filter function
@@ -833,3 +861,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Error fetching data:', error);
     }
 });
+
+
+
+
+
+
+
+
+
